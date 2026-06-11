@@ -1,19 +1,31 @@
-Package: eqtesting
+Package: lzrq
 Type: Package
-Title: Equivalence Testing Functions
-Version: 0.1.1
-Authors@R: c(person(given = "Jack",
-                        family = "Fitzgerald",
-                        role = c("aut", "cre"),
-                        email = "j.f.fitzgerald@vu.nl"),
-                 person(given = "Peder",
-                        family = "Isager",
-                        role = "ctb"))
+Title: Quantile Regression for Logarithmic Relationships with Non-Positive Outcome Values
+Version: 0.1.0
+Authors@R: c(person(given = "David",
+                    family = "Valenta",
+                    role = "aut",
+                    email = "dvalenta@uottawa.ca"),
+             person(given = "Jack",
+                    family = "Fitzgerald",
+                    role = c("aut", "cre"),
+                    email = "j.f.fitzgerald@vu.nl"))
 Maintainer: Jack Fitzgerald <j.f.fitzgerald@vu.nl>
-Description: Contains several functions for equivalence testing and practical significance testing. First, the tsti() command provides an automatic computation of three-sided testing results for a given estimate, standard error, and region of practical equivalence. For details, see Goeman, Solari, & Stijnen (2010) <doi:10.1002/sim.4002> and Isager & Fitzgerald (2024) <doi:10.31234/osf.io/8y925>. Second, the lddtest() command performs logarithmic density discontinuity equivalence testing for regression discontinuity designs. For reference, see Fitzgerald (2025) <doi:10.31222/osf.io/2dgrp_v1>. 
+Description: Provides lzrq(), a wrapper for rq() from the quantreg package, for
+    fitting quantile regression models where the outcome variable is
+    non-negative but may equal zero. Rather than dropping zero observations or
+    applying a log-like transformation such as log(1 + Y), lzrq() replaces
+    log(0) with a sufficiently negative finite sentinel value and automatically
+    verifies the choice via an iterative bisection algorithm. This is an
+    automated adaptation of the algorithm described by Liu & Kaplan (2025)
+    <https://drive.google.com/file/d/1F3dnhm8MrlO5aRrGt48rBWAEaBqdCBH-/view>
+    and implemented in the companion Stata command lzqreg, described in
+    Fitzgerald, Adema, Fiala, Kujansuu, & Valenta (2026)
+    <doi:10.31222/osf.io/juda7_v1>.
 License: CC BY 4.0
 Encoding: UTF-8
 LazyData: true
-URL: https://github.com/jack-fitzgerald/eqtesting
-BugReports: https://github.com/jack-fitzgerald/eqtesting/issues
-Imports: data.table, graphics, stats
+URL: https://github.com/jack-fitzgerald/lzrq
+BugReports: https://github.com/jack-fitzgerald/lzrq/issues
+Imports: quantreg
+Suggests: MASS

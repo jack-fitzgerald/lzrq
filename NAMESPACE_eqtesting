@@ -1,5 +1,0 @@
-export(lddtest)
-export(tst)
-import(data.table)
-import(graphics)
-import(stats)
