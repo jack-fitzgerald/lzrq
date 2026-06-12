@@ -22,6 +22,12 @@ lzrq = function(formula, data, tau = 0.5, floor_val = -1e300, ...) {
   #Extract raw outcome (left-hand side, before log transformation)
   Y = model.response(mf)
   
+  #Original data restricted to the rows actually used (post NA removal),
+  #keeping all original columns so transformations like factor() in the
+  #formula still evaluate correctly when refitting
+  omit = attr(mf, "na.action")
+  dat  = if (is.null(omit)) data else data[-omit, , drop = FALSE]
+  
   #If Y contains no strictly positive values...
   if (!any(Y > 0)) {
     
@@ -49,13 +55,17 @@ lzrq = function(formula, data, tau = 0.5, floor_val = -1e300, ...) {
   for (iter in 1:10) {
     
     #Build transformed outcome: ln(Y) for Y > 0, sentinel for Y <= 0
-    logY = ifelse(Y > 0, log(Y), sentinel)
+    logY = rep(sentinel, n)
+    logY[Y > 0] = log(Y[Y > 0])
     
-    #Update the model frame with the transformed outcome
-    mf[[1]] = logY
+    #Attach transformed outcome to the estimation data and swap it in as
+    #the left-hand side, leaving the right-hand side untouched so that
+    #factor(), log(), poly(), interactions, etc. all evaluate as written
+    dat$.lzrq_logY = logY
+    formula_log = update(formula, .lzrq_logY ~ .)
     
     #Run quantile regression on transformed outcome, passing all extra args through
-    fit = quantreg::rq(formula = formula(mf), data = mf, tau = tau, ...)
+    fit = quantreg::rq(formula = formula_log, data = dat, tau = tau, ...)
     
     #Check whether all fitted values exceed the sentinel
     yhat = fit$fitted.values
@@ -112,7 +122,7 @@ lzrq = function(formula, data, tau = 0.5, floor_val = -1e300, ...) {
 #####################
 
 print.lzrq = function(x, ...) {
-  cat(sprintf("\nQuantile regression (log outcome)     Number of obs        = %8d\n", length(x$fitted.values)))
+  cat(sprintf("\nQuantile regression (log outcome)      Number of obs        = %8d\n", length(x$fitted.values)))
   cat(sprintf("Outcome: log(%s)      Number non-positive  = %d\n\n", deparse(x$call_lzrq$formula[[2]]), x$n_nonpos))
   #Temporarily swap in the lzrq call for display, then restore
   rq_call    = x$call
@@ -121,18 +131,19 @@ print.lzrq = function(x, ...) {
   message("\nPlease cite the papers underlying this command:")
   message("  Fitzgerald, J., Adema, J., Fiala, L., Kujansuu, E., & Valenta, D. (2026). Non-Robustness in Log-Like Specifications. MetaArXiv. https://doi.org/10.31222/osf.io/juda7_v1")
   message("  Liu, X., & Kaplan, D. M. (2025). Quantile Regression with Log(0) Outcomes. https://drive.google.com/file/d/1F3dnhm8MrlO5aRrGt48rBWAEaBqdCBH-/view")
+  message(" ")
   invisible(x)
 }
 
-summary.lzrq = function(object, se = "nid", covariance = FALSE, wald = FALSE, ...) {
+summary.lzrq = function(object, ...) {
   cat(sprintf("\nQuantile regression (log outcome)      Number of obs        = %8d\n", length(object$fitted.values)))
   cat(sprintf("Outcome: log(%s)      Number non-positive  = %d\n\n", deparse(object$call_lzrq$formula[[2]]), object$n_nonpos))
-  rq_call     = object$call
-  object$call = object$call_lzrq
-  result = NextMethod()
-  print(result)
+  #Temporarily swap in the lzrq call for display, then restore
+  rq_call        = object$call
+  object$call    = object$call_lzrq
+  NextMethod(object, ...)
   message("\nPlease cite the papers underlying this command:")
   message("  Fitzgerald, J., Adema, J., Fiala, L., Kujansuu, E., & Valenta, D. (2026). Non-Robustness in Log-Like Specifications. MetaArXiv. https://doi.org/10.31222/osf.io/juda7_v1")
   message("  Liu, X., & Kaplan, D. M. (2025). Quantile Regression with Log(0) Outcomes. https://drive.google.com/file/d/1F3dnhm8MrlO5aRrGt48rBWAEaBqdCBH-/view")
-  invisible(result)
+  message(" ")
 }
