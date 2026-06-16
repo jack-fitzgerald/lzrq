@@ -88,12 +88,12 @@ lzrq = function(formula, data, tau = 0.5, psi_init = -1e35, ...) {
   
   #If convergence failed after 10 iterations...
   if (!success) {
-    
-    #... then stop the function
     stop(paste0(
-      "Convergence failure: after 10 iterations, some fitted values from quantile regression on the transformed outcome remain at or below the psi value; results suppressed"
+      "Convergence failure: after 10 iterations, some fitted values from quantile regression on the transformed outcome remain at or below the psi value; results suppressed",
+      "\n\nPlease cite the papers underlying this command:",
+      "\n  Fitzgerald, J., Adema, J., Fiala, L., Kujansuu, E., & Valenta, D. (2026). Non-Robustness in Log-Like Specifications. MetaArXiv. https://doi.org/10.31222/osf.io/juda7_v1",
+      "\n  Liu, X., & Kaplan, D. M. (2025). Quantile Regression with Log(0) Outcomes. https://drive.google.com/file/d/1F3dnhm8MrlO5aRrGt48rBWAEaBqdCBH-/view"
     ))
-    
   }
   
   ###################
