@@ -9,8 +9,8 @@ Authors@R: c(person(given = "David",
              person(given = "Jack",
                     family = "Fitzgerald",
                     role = c("aut", "cre"),
-                    email = "j.f.fitzgerald@vu.nl"))
-Maintainer: Jack Fitzgerald <j.f.fitzgerald@vu.nl>
+                    email = "jackfitzgeraldresearch@gmail.com"))
+Maintainer: Jack Fitzgerald <jackfitzgeraldresearch@gmail.com>
 Description: Provides the lzrq() function for estimating
     logarithmic regression slopes in quantile regression models, permitting
     the outcome variable to take on non-positive values. lzrq() conducts regression
