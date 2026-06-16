@@ -40,9 +40,9 @@ Optional data frame containing the variables in the model.
   \item{tau}{
 Quantile level. Numeric scalar strictly between 0 and 1. Defaults to 0.5.
   }
-  \item{floor_val}{
-Sentinel floor value used as the lower bound in the bisection algorithm.
-Defaults \code{-1e35} to mirror Stata's
+  \item{psi_init}{
+Initial lower bound constant used in the bisection algorithm.
+Defaults to \code{-1e35} to mirror Stata's
 \code{lzqreg} convention.
   }
   \item{...}{
@@ -54,7 +54,7 @@ Additional arguments passed to \code{\link[quantreg]{rq}}, such as
 An object of class \code{c("lzrq", "rq")}. This is the fitted \code{rq}
 object with two additional fields:
 
-\item{sentinel}{The sentinel value \eqn{\psi} used to replace non-positive
+\item{lb_constant}{The lower bound constant \eqn{-\psi} used to replace non-positive
 outcomes in the final iteration.}
 \item{n_nonpos}{Number of non-positive outcome values in the estimation
 sample.}

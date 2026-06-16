@@ -1,4 +1,4 @@
-lzrq = function(formula, data, tau = 0.5, floor_val = -1e35, ...) {
+lzrq = function(formula, data, tau = 0.5, psi_init = -1e35, ...) {
   
   ##################
   ##### ERRORS #####
@@ -44,7 +44,7 @@ lzrq = function(formula, data, tau = 0.5, floor_val = -1e35, ...) {
   ln_min_pos = log(min(Y[Y > 0]))
   
   #Step 1: initial sentinel = midpoint between floor and ln(min positive Y)
-  sentinel = (floor_val + ln_min_pos) / 2
+  sentinel = (psi_init + ln_min_pos) / 2
   
   ###########################
   ##### ITERATIVE BISECT ####
@@ -78,7 +78,7 @@ lzrq = function(formula, data, tau = 0.5, floor_val = -1e35, ...) {
     }
     
     #Not all fitted values above sentinel: move sentinel halfway to floor
-    sentinel = (floor_val + sentinel) / 2
+    sentinel = (psi_init + sentinel) / 2
     
   }
   
@@ -101,7 +101,7 @@ lzrq = function(formula, data, tau = 0.5, floor_val = -1e35, ...) {
   ###################
   
   #Attach lzrq-specific fields to the rq object
-  fit$sentinel = sentinel
+  fit$lb_constant = sentinel
   fit$n_nonpos = n_nonpos
   
   #Store original call separately for display only; leave fit$call as internal rq call
@@ -123,7 +123,7 @@ lzrq = function(formula, data, tau = 0.5, floor_val = -1e35, ...) {
 
 print.lzrq = function(x, ...) {
   cat(sprintf("\nQuantile regression (log outcome)      Number of obs        = %8d\n", length(x$fitted.values)))
-  cat(sprintf("Outcome: log(%s)      Number non-positive  = %d\n\n", deparse(x$call_lzrq$formula[[2]]), x$n_nonpos))
+  cat(sprintf("Outcome: ln(%s)      Number non-positive  = %d\n\n", deparse(x$call_lzrq$formula[[2]]), x$n_nonpos))
   #Temporarily swap in the lzrq call for display, then restore
   rq_call    = x$call
   x$call     = x$call_lzrq
@@ -137,7 +137,7 @@ print.lzrq = function(x, ...) {
 
 summary.lzrq = function(object, ...) {
   cat(sprintf("\nQuantile regression (log outcome)      Number of obs        = %8d\n", length(object$fitted.values)))
-  cat(sprintf("Outcome: log(%s)      Number non-positive  = %d\n\n", deparse(object$call_lzrq$formula[[2]]), object$n_nonpos))
+  cat(sprintf("Outcome: ln(%s)      Number non-positive  = %d\n\n", deparse(object$call_lzrq$formula[[2]]), object$n_nonpos))
   #Temporarily swap in the lzrq call for display, then restore
   rq_call        = object$call
   object$call    = object$call_lzrq
