@@ -141,7 +141,7 @@ summary.lzrq = function(object, ...) {
   #Temporarily swap in the lzrq call for display, then restore
   rq_call        = object$call
   object$call    = object$call_lzrq
-  NextMethod(object, ...)
+  print(NextMethod(object, ...))
   message("\nPlease cite the papers underlying this command:")
   message("  Fitzgerald, J., Adema, J., Fiala, L., Kujansuu, E., & Valenta, D. (2026). Non-Robustness in Log-Like Specifications. MetaArXiv. https://doi.org/10.31222/osf.io/juda7_v1")
   message("  Liu, X., & Kaplan, D. M. (2025). Quantile Regression with Log(0) Outcomes. https://drive.google.com/file/d/1F3dnhm8MrlO5aRrGt48rBWAEaBqdCBH-/view")
