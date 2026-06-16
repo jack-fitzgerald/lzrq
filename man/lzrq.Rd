@@ -28,7 +28,7 @@ All methods supported by \code{\link[quantreg]{rq}} are available, including
 \code{summary()}, \code{AIC()}, and \code{logLik()}.
 }
 \usage{
-lzrq(formula, data, tau = 0.5, floor_val = -1e300, ...)
+lzrq(formula, data, tau = 0.5, floor_val = -1e35, ...)
 }
 \arguments{
   \item{formula}{
@@ -42,7 +42,7 @@ Quantile level. Numeric scalar strictly between 0 and 1. Defaults to 0.5.
   }
   \item{floor_val}{
 Sentinel floor value used as the lower bound in the bisection algorithm.
-Defaults to \code{-1e300}. Set to \code{-1e35} to mirror Stata's
+Defaults \code{-1e35} to mirror Stata's
 \code{lzqreg} convention.
   }
   \item{...}{

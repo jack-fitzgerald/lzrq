@@ -32,4 +32,4 @@ Encoding: UTF-8
 LazyData: true
 URL: https://github.com/jack-fitzgerald/lzrq
 BugReports: https://github.com/jack-fitzgerald/lzrq/issues
-Imports: quantreg, stats
+Imports: MASS, quantreg, stats
