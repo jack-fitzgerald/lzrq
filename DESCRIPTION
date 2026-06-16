@@ -11,7 +11,7 @@ Authors@R: c(person(given = "David",
                     role = c("aut", "cre"),
                     email = "j.f.fitzgerald@vu.nl"))
 Maintainer: Jack Fitzgerald <j.f.fitzgerald@vu.nl>
-Description: Provides functions for estimating
+Description: Provides the lzrq() function for estimating
     logarithmic regression slopes in quantile regression models, permitting
     the outcome variable to take on non-positive values. lzrq() conducts regression
     after replacing non-positive values with a sufficiently negative value.
@@ -25,11 +25,11 @@ Description: Provides functions for estimating
     an error and suppress results. This is an automated adaptation of the algorithm described 
     by Liu & Kaplan (2025) <https://drive.google.com/file/d/1F3dnhm8MrlO5aRrGt48rBWAEaBqdCBH-/view>
     and implemented in the companion Stata command lzqreg, described in
-    Fitzgerald, Adema, Fiala, Kujansuu, & Valenta (2026)
+    Fitzgerald et al. (2026)
     <doi:10.31222/osf.io/juda7_v1>.
 License: CC BY 4.0
 Encoding: UTF-8
 LazyData: true
 URL: https://github.com/jack-fitzgerald/lzrq
 BugReports: https://github.com/jack-fitzgerald/lzrq/issues
-Imports: MASS, pracma, quantreg, stats
+Imports: quantreg, stats

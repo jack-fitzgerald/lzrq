@@ -1,7 +1,4 @@
 export(lzrq)
-export(lzivqrsee)
-import(MASS)
-importFrom(pracma, newtonsys)
 importFrom(quantreg, rq)
 importFrom(stats, model.frame, model.response, na.omit)
 S3method(print, lzrq)
