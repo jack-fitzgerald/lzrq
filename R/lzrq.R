@@ -1,4 +1,4 @@
-lzrq = function(formula, data, tau = 0.5, floor_val = -1e300, ...) {
+lzrq = function(formula, data, tau = 0.5, floor_val = -1e35, ...) {
   
   ##################
   ##### ERRORS #####
