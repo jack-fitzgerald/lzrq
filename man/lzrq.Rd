@@ -91,7 +91,7 @@ Liu, X., & Kaplan, D. M. (2025). Quantile Regression with Log(0) Outcomes.
 \url{https://drive.google.com/file/d/1F3dnhm8MrlO5aRrGt48rBWAEaBqdCBH-/view}
 }
 \author{
-David Valenta (dvalenta@uottawa.ca) and Jack Fitzgerald (j.f.fitzgerald@vu.nl)
+David Valenta (dvalenta@uottawa.ca) and Jack Fitzgerald (jackfitzgeraldresearch@gmail.com)
 }
 \seealso{
 \code{\link[quantreg]{rq}}, \code{\link[quantreg]{summary.rq}}
