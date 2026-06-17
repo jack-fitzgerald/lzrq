@@ -1,6 +1,6 @@
 export(lzrq)
 import(MASS)
 importFrom(quantreg, rq)
-importFrom(stats, model.frame, model.response, na.omit)
+importFrom(stats, model.frame, model.response, na.omit, update)
 S3method(print, lzrq)
 S3method(summary, lzrq)
