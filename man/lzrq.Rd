@@ -28,7 +28,7 @@ All methods supported by \code{\link[quantreg]{rq}} are available, including
 \code{summary()}, \code{AIC()}, and \code{logLik()}.
 }
 \usage{
-lzrq(formula, data, tau = 0.5, floor_val = -1e35, ...)
+lzrq(formula, data, tau = 0.5, psi_init = -1e35, ...)
 }
 \arguments{
   \item{formula}{
